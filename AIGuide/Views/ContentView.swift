@@ -1,19 +1,31 @@
+//
+//  ContentView.swift
+//  AIGuide
+//
+//  Root TabView with three tabs: Guides, Search, Bookmarks
+//
+
 import SwiftUI
 
 struct ContentView: View {
+    @State private var store = GuideStore()
+
     var body: some View {
-        NavigationStack {
-            VStack {
-                Image(systemName: "book.fill")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("AI Guide")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+        TabView {
+            Tab("Guides", systemImage: "book.fill") {
+                GuidesListView()
             }
-            .padding()
-            .navigationTitle("AI Guide")
+
+            Tab("Search", systemImage: "magnifyingglass") {
+                SearchView()
+            }
+
+            Tab("Bookmarks", systemImage: "bookmark.fill") {
+                BookmarksView()
+            }
         }
+        .tint(.blue)
+        .environment(store)
     }
 }
 

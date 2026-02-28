@@ -2,41 +2,67 @@
 
 ## Overview
 
-AI Guide is a SwiftUI iOS app that transforms plain-text homelab/AI guides into a polished, interactive mobile experience.
+AI Guide is a SwiftUI iOS app that transforms plain-text homelab/AI guides into a polished, interactive mobile experience with tap-to-copy commands, category-coded navigation, and bookmarks.
 
 ## Tech Stack
 
 - SwiftUI (iOS 17+)
 - Xcode 15+
-- MVVM architecture
+- @Observable (iOS 17 Observation framework)
+- UserDefaults for bookmark persistence
 
 ## Project Structure
 
 ```
 AIGuide/
 ├── App/              — App entry point (@main)
-├── Views/            — SwiftUI views
-├── Models/           — Data models
-├── ViewModels/       — View models (business logic)
-├── Services/         — Networking, data persistence
-├── Utils/            — Helper functions
-├── Extensions/       — Swift type extensions
-├── Resources/        — Assets, colors, images
+├── Models/           — GuideCategory, Guide, GuideSection, ContentBlock
+├── Data/             — Static guide content (one file per category)
+├── ViewModels/       — GuideStore (@Observable) for bookmarks, search
+├── Views/            — All SwiftUI views
+│   ├── ContentView        — Root TabView (Guides, Search, Bookmarks)
+│   ├── GuidesListView     — Home tab with hero header + category grid
+│   ├── CategoryGuidesView — Guides filtered by category
+│   ├── GuideDetailView    — Full guide with sections, commands, steps
+│   ├── SearchView         — Full-text search across all content
+│   └── BookmarksView      — Saved guides
+├── Components/       — Reusable UI components
+│   ├── GradientHeader     — Blue gradient hero banner
+│   ├── CommandBlock       — Tap-to-copy monospace command
+│   ├── CommandTableView   — Table of labeled commands
+│   ├── GuideCard          — Guide summary card
+│   ├── CategoryBadge      — Colored category pill
+│   ├── SectionHeader      — Icon + title header
+│   ├── StepRow            — Numbered step with circle
+│   └── TipBanner          — Tip/warning banner
+├── Resources/        — Assets
 AIGuideTests/         — Unit tests
 ```
 
 ## Guide Categories
 
-- **Local AI** — Ollama, local LLMs on Windows/WSL
-- **Cloud AI** — Open WebUI + LiteLLM on VPS, Claude Code on phone
-- **Virtualization** — Proxmox homelab, VMs, LXC containers
-- **Networking** — Twingate remote access, Browser-Use WebUI
+- **Local AI** (green) — Ollama, local LLMs on Windows/WSL
+- **Cloud AI** (blue) — Open WebUI + LiteLLM on VPS, Claude Code on phone
+- **Virtualization** (orange) — Proxmox homelab, VMs, LXC containers
+- **Networking** (purple) — Twingate remote access, Browser-Use WebUI
+
+## 8 Guides
+
+1. Local AI with Ollama (Windows + WSL)
+2. VPS Cloud AI Setup (Open WebUI + LiteLLM)
+3. Claude Code on Phone via VPS
+4. Proxmox Homelab Setup
+5. Proxmox Virtual Machines
+6. Proxmox Containers (Pi-hole, Nextcloud, Vaultwarden, Jellyfin, Nginx)
+7. Twingate Remote Access
+8. Browser-Use WebUI
 
 ## Coding Conventions
 
-- Follow MVVM pattern: Views observe ViewModels, ViewModels call Services
-- Keep views small — extract reusable components into separate files
-- Use Swift naming conventions (camelCase for properties/methods, PascalCase for types)
-- Prefer `@Observable` over `ObservableObject` for iOS 17+
-- Use NavigationStack (not NavigationView)
-- Each guide should follow: Overview > Prerequisites > Steps > Verification > Troubleshooting > Next Steps
+- MVVM-ish: Views contain state, GuideStore handles shared state
+- @Observable + @Environment for dependency injection
+- `// MARK: -` sections for every logical group
+- Private computed properties for view subsections
+- #Preview at bottom of every view file
+- Light/system design style (educational app pattern)
+- Card-based layouts with category color coding
