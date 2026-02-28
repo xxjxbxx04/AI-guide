@@ -12,17 +12,20 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-            Tab("Guides", systemImage: "book.fill") {
-                GuidesListView()
-            }
+            GuidesListView()
+                .tabItem {
+                    Label("Guides", systemImage: "book.fill")
+                }
 
-            Tab("Search", systemImage: "magnifyingglass") {
-                SearchView()
-            }
+            SearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
 
-            Tab("Bookmarks", systemImage: "bookmark.fill") {
-                BookmarksView()
-            }
+            BookmarksView()
+                .tabItem {
+                    Label("Bookmarks", systemImage: "bookmark.fill")
+                }
         }
         .tint(.blue)
         .environment(store)
