@@ -85,7 +85,6 @@ extension GuideData {
                     "VaultWarden — 192.168.5.12",
                     "Jellyfin — 192.168.5.11:8096",
                     "Nginx Proxy Manager — 192.168.5.13:81",
-                    "Open WebUI (laptop) — 192.168.5.107:8080",
                 ]),
                 .tip("You can add a CIDR range (e.g., 192.168.5.0/24) to cover your entire network instead of adding each service individually."),
             ]),
@@ -114,7 +113,6 @@ extension GuideData {
                     "Pi-hole: http://192.168.5.10/admin",
                     "Nextcloud: http://192.168.5.135:8080",
                     "Jellyfin: http://192.168.5.11:8096",
-                    "Open WebUI: http://192.168.5.107:8080",
                 ]),
                 .tip("VPS services don't need Twingate since they're already on the public internet."),
             ]),
@@ -137,7 +135,6 @@ extension GuideData {
         ],
         tips: [
             "The Proxmox server MUST be powered on for Twingate to reach homelab services",
-            "Your laptop MUST be powered on for laptop-hosted services (Ollama, Open WebUI)",
             "The VPS is always on, so those services are always reachable without Twingate",
             "Twingate is free for up to 5 users",
             "No port forwarding or firewall changes needed",
